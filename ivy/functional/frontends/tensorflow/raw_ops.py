@@ -866,3 +866,24 @@ Zeta = to_ivy_arrays_and_back(
         "tensorflow",
     )(map_raw_ops_alias(tf_frontend.math.zeta))
 )
+
+
+Imag = to_ivy_arrays_and_back(
+    with_supported_dtypes(
+        {
+            "2.12.0 and below": "complex64",
+        },
+        "tensorflow",
+    )(map_raw_ops_alias(tf_frontend.math.imag))
+)
+
+
+@to_ivy_arrays_and_back
+def Imag(
+    *,
+    input,
+    Tout=ivy.float32,
+    name="Imag",
+):
+    Tout = ivy.as_ivy_dtype(Tout) if Tout is not None else ivy.float32
+    return ivy.astype(ivy.imag(input), Tout)
